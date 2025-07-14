@@ -1,0 +1,53 @@
+/* public/css/attendance.css */
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* 日時表示 */
+.attendance-datetime {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.attendance-date {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.attendance-time {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+}
+
+/* ボタンスタイル共通 */
+.attendance-button {
+    padding: 0.8rem 2rem;
+    border-radius: 0.375rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* それぞれの色 */
+.attendance-button.clock-in { background: #2563eb; }   /* blue-600 */
+.attendance-button.clock-in:hover { background: #1d4ed8; }
+
+.attendance-button.clock-out { background: #ef4444; }  /* red-500 */
+.attendance-button.clock-out:hover { background: #dc2626; }
+
+.attendance-button.break-in { background: #eab308; }   /* yellow-500 */
+.attendance-button.break-in:hover { background: #ca8a04; }
+
+.attendance-button.break-out { background: #22c55e; }  /* green-500 */
+.attendance-button.break-out:hover { background: #16a34a; }
+
+/* 退勤済メッセージ */
+.attendance-finish {
+    margin-top: 2rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #15803d; /* green-700 */
+}

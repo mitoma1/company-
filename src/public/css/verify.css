@@ -1,0 +1,37 @@
+.verify-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.verify-message {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+.verify-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #f52a14;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.verify-button:hover {
+    background: #d9240f;
+}
+
+.resend-link {
+    margin-top: 20px;
+}
+
+.resend-link a {
+    color: #333;
+    text-decoration: underline;
+}

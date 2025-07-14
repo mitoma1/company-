@@ -1,0 +1,27 @@
+.staff-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+  }
+  
+  .staff-table thead tr {
+    background-color: #1a202c; /* 濃いネイビー */
+    color: white;
+  }
+  
+  .staff-table th,
+  .staff-table td {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .staff-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .staff-table tbody tr:hover {
+    background-color: #f1f5f9; /* 薄いブルーグレー */
+  }
+  
