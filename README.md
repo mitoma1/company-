@@ -3,7 +3,7 @@
 #環境構築
 Dockerビルド
 
-1.git clone git@github.com/mitoma1/flea-market.git
+1.git clone github.com/mitoma1/company-.git
 2.DockerDesktopアプリを立ち上げる
 3.docker-compose up -d --build
 
@@ -46,7 +46,16 @@ MAIL_FROM_ADDRESS=no-reply@example.com
 MAIL_FROM_NAME="COACHTECH"
 
 　Mailhog： http://localhost:8025  
-　認証後は /profile/setup に自動遷移
+　認証後は attendance に自動遷移
+
+ ＃管理者ログイン情報（ローカル開発用）
+
+このアカウントはローカル開発環境で使用するためのダミー管理者アカウントです。  
+
+
+- **メールアドレス**：admin@example.com  
+- **パスワード**：password123
+
 
  
 
@@ -54,4 +63,5 @@ MAIL_FROM_NAME="COACHTECH"
 ![ER図](./docs/erd.drawio.png)
 
 #URL 開発環境：http://localhost/register
+　　　　　　　　http://localhost/admin/login
 #phpMyAdmin:：http://localhost:8080/
