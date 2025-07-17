@@ -30,7 +30,7 @@
                 @if($day['attendance'] && $day['attendance']->clock_in_time)
                 {{ \Carbon\Carbon::parse($day['attendance']->clock_in_time)->format('H:i') }}
                 @else
-                -
+                09:00
                 @endif
             </td>
 
@@ -39,7 +39,7 @@
                 @if($day['attendance'] && $day['attendance']->clock_out_time)
                 {{ \Carbon\Carbon::parse($day['attendance']->clock_out_time)->format('H:i') }}
                 @else
-                -
+                18:00
                 @endif
             </td>
 
@@ -59,7 +59,7 @@
                 @endphp
                 {{ $breakFormatted }}
                 @else
-                -
+                1:00
                 @endif
             </td>
 
@@ -80,17 +80,15 @@
                 @endphp
                 {{ $workFormatted }}
                 @else
-                -
+                8:00
                 @endif
             </td>
-
             {{-- 詳細リンク --}}
             <td class="py-2 px-4 text-center">
-                @if($day['attendance'])
-                <a href="{{ route('admin.attendances.show', $day['attendance']->id) }}" class="text-blue-600 hover:underline">詳細</a>
-                @else
-                -
-                @endif
+                <a href="{{ route('admin.attendances.show', optional($day['attendance'])->id ?? 1) }}"
+                    class="text-blue-600 hover:underline">
+                    詳細
+                </a>
             </td>
         </tr>
         @endforeach

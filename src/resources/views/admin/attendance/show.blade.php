@@ -10,7 +10,7 @@
 
     <form method="POST" action="{{ route('admin.attendances.update', $attendance->id) }}" class="space-y-4">
         @csrf
-        @method('PUT') <!-- ⭐️ これが重要！ -->
+        @method('PUT')
 
         <div><strong>名前:</strong> {{ $attendance->user->name }}</div>
         <div><strong>日付:</strong> {{ \Carbon\Carbon::parse($attendance->work_date)->format('Y年m月d日') }}</div>

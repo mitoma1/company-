@@ -14,11 +14,22 @@ class AttendanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'start_time' => ['required', 'date_format:H:i'],
-            'end_time' => ['required', 'date_format:H:i', 'after:start_time'],
-            'break_start' => ['nullable', 'date_format:H:i', 'after_or_equal:start_time', 'before_or_equal:end_time'],
-            'break_end' => ['nullable', 'date_format:H:i', 'after_or_equal:break_start', 'before_or_equal:end_time'],
-            'note' => ['required'],
+            'clock_in_time' => ['required', 'date_format:H:i'],
+            'clock_out_time' => ['required', 'date_format:H:i', 'after:clock_in_time'],
+
+            // 休憩開始時間は配列で任意の数を許容、各要素は時間形式
+            'break_start_times' => ['nullable', 'array'],
+            'break_start_times.*' => ['nullable', 'date_format:H:i', 'after_or_equal:clock_in_time', 'before_or_equal:clock_out_time'],
+
+            // 休憩終了時間も同様
+            'break_end_times' => ['nullable', 'array'],
+            'break_end_times.*' => ['nullable', 'date_format:H:i', 'after_or_equal:break_start_times.*', 'before_or_equal:clock_out_time'],
+
+            // 新規休憩（任意）
+            'new_break_start' => ['nullable', 'date_format:H:i', 'after_or_equal:clock_in_time', 'before_or_equal:clock_out_time'],
+            'new_break_end' => ['nullable', 'date_format:H:i', 'after_or_equal:new_break_start', 'before_or_equal:clock_out_time'],
+
+            'note' => ['nullable'],
         ];
     }
 

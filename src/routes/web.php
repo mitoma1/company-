@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\AdminAttendanceController;
 
 // トップページ
 Route::get('/', function () {
@@ -40,50 +41,32 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', '認証メールを再送しました。');
 })->middleware('throttle:6,1')->name('verification.send');
 
-// ユーザーの勤怠関連
+// ===== 一般ユーザー =====
 Route::get('/attendance/create', function () {
     return view('attendance.create');
 })->name('attendance.create');
 
 Route::get('/attendance/list', [AttendanceController::class, 'list'])->name('attendance.list');
-
 Route::get('/attendance/detail/{attendance}', [AttendanceController::class, 'detail'])->name('attendance.detail');
-
 Route::get('/attendance/{attendance}/edit', [AttendanceController::class, 'edit'])->name('attendance.edit');
-Route::post('/attendance/{attendance}/edit', [AttendanceController::class, 'update'])->name('attendance.update');
+Route::post('/attendance/{attendance}', [AttendanceController::class, 'update'])->name('attendance.update');
 
-// ユーザー申請
 Route::get('/application', [AttendanceController::class, 'application'])->name('application');
 
-// ===== 管理者関連 =====
-Route::prefix('admin')->group(function () {
+// ===== 管理者専用 =====
+Route::prefix('admin')->name('admin.')->group(function () {
+    // 勤怠管理
+    Route::get('/attendances', [AdminAttendanceController::class, 'index'])->name('attendances.index');
+    Route::get('/attendances/{attendance}', [AdminAttendanceController::class, 'show'])->name('attendances.show');
+    Route::put('/attendances/{attendance}', [AdminAttendanceController::class, 'update'])->name('attendances.update');
 
-    // 管理者勤怠一覧（既存のlistメソッドに変更）
-    Route::get('/attendances', [AttendanceController::class, 'list'])->name('admin.attendances.index');
+    // スタッフ管理
+    Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
+    Route::get('/staff/{id}/attendance', [StaffController::class, 'attendanceDetail'])->name('staff.attendance');
+    Route::get('/staff/{id}/attendance/csv', [StaffController::class, 'attendanceCsv'])->name('staff.attendance.csv');
 
-    // 管理者勤怠詳細
-    Route::get('/attendances/{attendance}', [AttendanceController::class, 'adminDetail'])->name('admin.attendances.show');
-
-    // 管理者勤怠更新（PUTなどがあれば）
-    Route::put('/attendances/{attendance}', [AttendanceController::class, 'update'])->name('admin.attendances.update');
-
-    // スタッフ一覧
-    Route::get('/staff', [StaffController::class, 'index'])->name('admin.staff.index');
-
-    // 管理者申請一覧（承認待ち・承認済み表示）
-    Route::get('/applications', [ApplicationController::class, 'index'])->name('admin.application.index');
-
-    // 修正申請詳細表示
-    Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('admin.application.show');
-
-    // 修正申請承認処理
-    Route::put('/applications/{id}/approve', [ApplicationController::class, 'approve'])->name('admin.application.approve');
+    // 申請管理
+    Route::get('/applications', [ApplicationController::class, 'index'])->name('application.index');
+    Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('application.show');
+    Route::put('/applications/{id}/approve', [ApplicationController::class, 'approve'])->name('application.approve');
 });
-
-// スタッフ別の月次勤怠詳細
-Route::get('/admin/staff/{id}/attendance', [StaffController::class, 'attendanceDetail'])
-    ->name('admin.staff.attendance');
-
-// スタッフ別の月次勤怠CSV出力
-Route::get('/admin/staff/{id}/attendance/csv', [StaffController::class, 'attendanceCsv'])
-    ->name('admin.staff.attendance.csv');

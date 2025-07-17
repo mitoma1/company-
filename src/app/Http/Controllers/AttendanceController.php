@@ -76,8 +76,8 @@ class AttendanceController extends Controller
         $validated = $request->validate([
             'clock_in_time' => 'required|date_format:H:i',
             'clock_out_time' => 'required|date_format:H:i|after:clock_in_time',
-            'break_start_times.*' => 'nullable|date_format:H:i',
-            'break_end_times.*' => 'nullable|date_format:H:i',
+            'break_start_times.*' => 'required|date_format:H:i',
+            'break_end_times.*' => 'required|date_format:H:i',
             'new_break_start' => 'nullable|date_format:H:i',
             'new_break_end' => 'nullable|date_format:H:i',
             'note' => 'nullable|string|max:255',

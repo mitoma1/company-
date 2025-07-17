@@ -22,9 +22,9 @@
             <tr>
                 <th class="py-2 px-4 border-b">状態</th>
                 <th class="py-2 px-4 border-b">名前</th>
-                <th class="py-2 px-4 border-b">対象日時</th>
+                <th class="py-2 px-4 border-b">対象日</th>
                 <th class="py-2 px-4 border-b">申請理由</th>
-                <th class="py-2 px-4 border-b">申請日時</th>
+                <th class="py-2 px-4 border-b">申請日</th>
                 <th class="py-2 px-4 border-b">詳細</th>
             </tr>
         </thead>
@@ -33,11 +33,12 @@
             <tr>
                 <td class="py-2 px-4 border-b text-center">{{ $application->status }}</td>
                 <td class="py-2 px-4 border-b text-center">{{ $application->user->name }}</td>
-                <td class="py-2 px-4 border-b text-center">{{ \Carbon\Carbon::parse($application->work_date)->format('Y/m/d') }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ $application->work_date }}</td>
                 <td class="py-2 px-4 border-b text-center">{{ $application->note }}</td>
                 <td class="py-2 px-4 border-b text-center">{{ $application->created_at->format('Y/m/d') }}</td>
                 <td class="py-2 px-4 border-b text-center">
-                    <a href="{{ route('admin.application.show', $application->id) }}" class="text-blue-500 hover:underline">詳細</a>
+                    <a href="{{ route('admin.application.show', ['id' => $application->id]) }}"
+                        class="text-blue-500 hover:underline">詳細</a>
                 </td>
             </tr>
             @empty
